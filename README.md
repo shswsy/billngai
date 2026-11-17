@@ -5,6 +5,8 @@
 
 ![หน้าจอบิลง่าย](docs/screenshot.png)
 
+**ใช้งานจริง: https://shswsy.github.io/billngai/** · ดูตัวอย่าง: https://shswsy.github.io/billngai/?demo
+
 ตัวอย่างไฟล์ PDF ที่ได้: [docs/sample-quotation.pdf](docs/sample-quotation.pdf)
 
 ## ทำอะไรได้บ้าง
