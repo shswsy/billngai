@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Doc, DocType } from '../types'
 import { computeTotals, fmtMoney, fmtThaiDate } from '../lib/calc'
+import { IconArrowRight, IconClose, IconDownload, IconSearch, IconUpload } from './icons'
 
 const NEXT: Record<DocType, DocType | null> = { quotation: 'invoice', invoice: 'receipt', receipt: null }
 const SHORT: Record<DocType, string> = { quotation: 'ใบเสนอราคา', invoice: 'ใบแจ้งหนี้', receipt: 'ใบเสร็จ' }
@@ -41,18 +42,24 @@ export function DocsPanel({ open, docs, currentId, onClose, onOpen, onConvert, o
       <div className="drawer-scrim" onClick={onClose} />
       <aside className="drawer-panel" role="dialog" aria-modal="true" aria-label="เอกสารของฉัน">
         <header className="drawer-head">
-          <h2>เอกสารของฉัน</h2>
+          <div>
+            <h2>เอกสารของฉัน</h2>
+            <p className="drawer-sub">{docs.length} เอกสารที่บันทึกไว้</p>
+          </div>
           <button ref={closeRef} type="button" className="icon-btn" aria-label="ปิด" onClick={onClose}>
-            ×
+            <IconClose />
           </button>
         </header>
-        <input
-          className="drawer-search"
-          type="search"
-          placeholder="ค้นหาเลขที่ หรือชื่อลูกค้า"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
+        <label className="drawer-search">
+          <IconSearch width={18} height={18} />
+          <input
+            type="search"
+            placeholder="ค้นหาเลขที่ หรือชื่อลูกค้า"
+            value={q}
+            aria-label="ค้นหาเอกสาร"
+            onChange={(e) => setQ(e.target.value)}
+          />
+        </label>
         {docs.length === 0 ? (
           <p className="drawer-empty">ยังไม่มีเอกสารที่บันทึกไว้ กด “บันทึก” หรือ “พิมพ์ / PDF” แล้วเอกสารจะมาอยู่ที่นี่</p>
         ) : (
@@ -72,7 +79,7 @@ export function DocsPanel({ open, docs, currentId, onClose, onOpen, onConvert, o
                   <div className="doc-actions">
                     {next && (
                       <button type="button" onClick={() => onConvert(d, next)}>
-                        ทำเป็น{SHORT[next]} →
+                        ทำเป็น{SHORT[next]} <IconArrowRight width={15} height={15} />
                       </button>
                     )}
                     {confirmId === d.id ? (
@@ -104,10 +111,10 @@ export function DocsPanel({ open, docs, currentId, onClose, onOpen, onConvert, o
           </p>
           <div className="drawer-foot-btns">
             <button type="button" onClick={onExport}>
-              ดาวน์โหลดไฟล์สำรอง
+              <IconDownload width={16} height={16} /> ดาวน์โหลดไฟล์สำรอง
             </button>
             <button type="button" onClick={() => fileRef.current?.click()}>
-              นำเข้าไฟล์สำรอง
+              <IconUpload width={16} height={16} /> นำเข้าไฟล์สำรอง
             </button>
             <input
               ref={fileRef}

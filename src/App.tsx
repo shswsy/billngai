@@ -1,8 +1,27 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { DOC_LABEL, type Doc, type DocType, type Profile } from './types'
+import { DOC_LABEL, type Doc, type DocType, type Profile, type VatMode } from './types'
 import { Editor } from './components/Editor'
 import { Paper } from './components/Paper'
 import { DocsPanel } from './components/DocsPanel'
+import {
+  IconArrowRight,
+  IconCheck,
+  IconEdit,
+  IconEye,
+  IconFolder,
+  IconInvoice,
+  IconList,
+  IconPercent,
+  IconPlus,
+  IconPrint,
+  IconQuote,
+  IconReceipt,
+  IconSave,
+  IconShield,
+  IconSpark,
+  IconWallet,
+} from './components/icons'
+import { computeTotals, fmtMoney } from './lib/calc'
 import { sampleData } from './lib/sample'
 import {
   convertDoc,
@@ -21,6 +40,16 @@ import {
 
 const TYPES: DocType[] = ['quotation', 'invoice', 'receipt']
 const TYPE_SHORT: Record<DocType, string> = { quotation: 'ใบเสนอราคา', invoice: 'ใบแจ้งหนี้', receipt: 'ใบเสร็จ' }
+const KPI_SHORT: Record<DocType, string> = { quotation: 'เสนอราคา', invoice: 'แจ้งหนี้', receipt: 'ใบเสร็จ' }
+const TYPE_ICON = { quotation: IconQuote, invoice: IconInvoice, receipt: IconReceipt }
+const VAT_LABEL: Record<VatMode, string> = {
+  none: 'ไม่มี VAT',
+  exclusive: 'บวกเพิ่ม 7%',
+  inclusive: 'รวมในราคาแล้ว',
+}
+
+/** Same document apart from the timestamp, i.e. nothing unsaved. */
+const sameContent = (a: Doc, b: Doc) => JSON.stringify({ ...a, updatedAt: 0 }) === JSON.stringify({ ...b, updatedAt: 0 })
 
 const isFirstVisit = () => !loadProfile().name && loadDocs().length === 0
 // `?demo` opens with example data, but only for a visitor with nothing saved yet.
@@ -140,82 +169,216 @@ export default function App() {
     }
   }
 
+  const totals = computeTotals(doc)
+  const savedVersion = docs.find((d) => d.id === doc.id)
+  const status: 'draft' | 'saved' | 'changed' = !savedVersion
+    ? 'draft'
+    : sameContent(savedVersion, doc)
+      ? 'saved'
+      : 'changed'
+  const filledItems = doc.items.filter((it) => it.description.trim() || it.price).length
+  const typeCounts = TYPES.map((t) => docs.filter((d) => d.type === t).length)
+
+  const typeNav = (cls: string) => (
+    <nav className={cls} aria-label="ประเภทเอกสาร">
+      {TYPES.map((t) => {
+        const Icon = TYPE_ICON[t]
+        return (
+          <button key={t} type="button" aria-pressed={doc.type === t} onClick={() => changeType(t)}>
+            <Icon className="nav-ico" />
+            <span>{TYPE_SHORT[t]}</span>
+          </button>
+        )
+      })}
+    </nav>
+  )
+
   return (
     <div className="app" data-view={view}>
-      <header className="topbar">
+      <aside className="sidebar">
         <a className="brand" href="./" aria-label="บิลง่าย หน้าแรก">
-          <span className="brand-stamp">บิลง่าย</span>
-          <span className="brand-tag">ออกบิลฟรี ไม่ต้องสมัคร</span>
+          <span className="brand-mark" aria-hidden="true">
+            <IconInvoice width={20} height={20} />
+          </span>
+          <span className="brand-text">
+            <span className="brand-name">บิลง่าย</span>
+            <span className="brand-tag">ออกบิลฟรี ไม่ต้องสมัคร</span>
+          </span>
         </a>
 
-        <nav className="type-tabs" aria-label="ประเภทเอกสาร">
-          {TYPES.map((t) => (
-            <button key={t} type="button" aria-pressed={doc.type === t} onClick={() => changeType(t)}>
-              {TYPE_SHORT[t]}
-            </button>
-          ))}
-        </nav>
+        <button type="button" className="btn btn-primary btn-block side-new" onClick={startNew}>
+          <IconPlus /> เอกสารใหม่
+        </button>
 
-        <div className="actions">
-          <button type="button" className="ghost" onClick={startNew}>
-            ใหม่
-          </button>
-          <button type="button" className="ghost" onClick={() => setPanel(true)}>
-            เอกสารของฉัน{docs.length > 0 && <span className="count">{docs.length}</span>}
-          </button>
-          <button type="button" className="ghost hide-sm" onClick={() => save()}>
-            บันทึก
-          </button>
-          <button type="button" className="primary hide-sm" onClick={print}>
-            พิมพ์ / PDF
+        <p className="side-label">สร้างเอกสาร</p>
+        {typeNav('side-nav')}
+
+        <p className="side-label">จัดการ</p>
+        <div className="side-nav">
+          <button type="button" onClick={() => setPanel(true)}>
+            <IconFolder className="nav-ico" />
+            <span>เอกสารของฉัน</span>
+            {docs.length > 0 && <span className="count">{docs.length}</span>}
           </button>
         </div>
-      </header>
 
-      <main className="workspace">
-        <section className="pane-edit" aria-label="กรอกข้อมูล">
-          <div className="pane-intro">
+        <div className="side-privacy">
+          <IconShield width={22} height={22} />
+          <p>
+            <strong>ข้อมูลอยู่ในเครื่องคุณ</strong>
+            ไม่มีการส่งข้อมูลลูกค้าหรือยอดเงินขึ้นเซิร์ฟเวอร์
+          </p>
+        </div>
+
+        {/* compact header actions (tablet / mobile) */}
+        <div className="head-actions">
+          <button type="button" className="icon-btn" aria-label="เอกสารใหม่" title="เอกสารใหม่" onClick={startNew}>
+            <IconPlus />
+          </button>
+          <button
+            type="button"
+            className="icon-btn"
+            aria-label="เอกสารของฉัน"
+            title="เอกสารของฉัน"
+            onClick={() => setPanel(true)}
+          >
+            <IconFolder />
+            {docs.length > 0 && <span className="count count-dot">{docs.length}</span>}
+          </button>
+        </div>
+      </aside>
+
+      <main className="main">
+        <header className="page-head">
+          <div className="page-title">
+            <p className="crumb">สร้างเอกสาร</p>
             <h1>
-              {DOC_LABEL[doc.type].th}
-              <span className="mono pane-no">{doc.number}</span>
+              <span>{DOC_LABEL[doc.type].th}</span>
+              <span className="chip mono">{doc.number}</span>
+              <span className={`status status-${status}`}>
+                {status === 'saved' ? 'บันทึกแล้ว' : status === 'changed' ? 'มีการแก้ไข' : 'ฉบับร่าง'}
+              </span>
             </h1>
-            <p>กรอกข้อมูลแล้วเอกสารจะอัปเดตทันที ข้อมูลเก็บในเครื่องคุณเท่านั้น ไม่ส่งขึ้นเซิร์ฟเวอร์</p>
-            {!profile.name && docs.length === 0 && (
-              <button
-                type="button"
-                className="sample-btn"
-                onClick={() => {
-                  const s = sampleData()
-                  setProfile(s.profile)
-                  setDoc(s.doc)
-                  showToast('ใส่ข้อมูลตัวอย่างแล้ว ลองแก้ไขดูได้เลย')
-                }}
-              >
-                ยังไม่เคยใช้? ลองดูตัวอย่างเอกสารที่เสร็จแล้ว →
-              </button>
-            )}
           </div>
-          <Editor doc={doc} profile={profile} onDoc={patchDoc} onProfile={patchProfile} onToast={showToast} />
-        </section>
-        <section className="pane-preview" aria-label="ตัวอย่างเอกสาร">
-          <div className="paper-wrap" ref={wrapRef} style={{ ['--zoom' as string]: zoom }}>
-            <Paper doc={doc} profile={profile} />
+          {typeNav('seg-tabs')}
+          <div className="page-actions">
+            <button type="button" className="btn btn-soft" onClick={() => save()}>
+              <IconSave /> บันทึก
+            </button>
+            <button type="button" className="btn btn-primary" onClick={print}>
+              <IconPrint /> พิมพ์ / PDF
+            </button>
           </div>
+        </header>
+
+        {!profile.name && docs.length === 0 && (
+          <button
+            type="button"
+            className="sample-btn"
+            onClick={() => {
+              const s = sampleData()
+              setProfile(s.profile)
+              setDoc(s.doc)
+              showToast('ใส่ข้อมูลตัวอย่างแล้ว ลองแก้ไขดูได้เลย')
+            }}
+          >
+            <span className="sample-ico">
+              <IconSpark />
+            </span>
+            <span>
+              <strong>ยังไม่เคยใช้?</strong> ลองดูตัวอย่างเอกสารที่เสร็จแล้ว แล้วแก้เป็นของคุณได้เลย
+            </span>
+            <IconArrowRight className="sample-arrow" />
+          </button>
+        )}
+
+        <section className="kpis" aria-label="สรุปยอดเอกสารนี้">
+          <div className="kpi kpi-hero">
+            <span className="kpi-ico">
+              <IconWallet />
+            </span>
+            <span className="kpi-label">ยอดชำระสุทธิ</span>
+            <strong className="kpi-value num">฿{fmtMoney(totals.net)}</strong>
+            <span className="kpi-sub">
+              {totals.wht > 0
+                ? `หลังหัก ณ ที่จ่าย ${doc.whtRate}%`
+                : doc.vatMode !== 'none'
+                  ? 'รวม VAT แล้ว'
+                  : 'ยอดที่ลูกค้าต้องจ่าย'}
+            </span>
+          </div>
+          <div className="kpi">
+            <span className="kpi-ico kpi-ico-amber">
+              <IconPercent />
+            </span>
+            <span className="kpi-label">ภาษีมูลค่าเพิ่ม</span>
+            <strong className="kpi-value num">฿{fmtMoney(totals.vat)}</strong>
+            <span className="kpi-sub">{VAT_LABEL[doc.vatMode]}</span>
+          </div>
+          <div className="kpi">
+            <span className="kpi-ico kpi-ico-green">
+              <IconList />
+            </span>
+            <span className="kpi-label">รายการ</span>
+            <strong className="kpi-value num">{filledItems}</strong>
+            <span className="kpi-sub">รวม ฿{fmtMoney(totals.subtotal)}</span>
+          </div>
+          <button type="button" className="kpi kpi-link" onClick={() => setPanel(true)}>
+            <span className="kpi-ico kpi-ico-violet">
+              <IconFolder />
+            </span>
+            <span className="kpi-label">เอกสารที่บันทึก</span>
+            <strong className="kpi-value num">{docs.length}</strong>
+            <span className="kpi-sub">
+              {docs.length === 0
+                ? 'กดเพื่อเปิดดูและค้นหา'
+                : TYPES.map((t, i) => (typeCounts[i] > 0 ? `${KPI_SHORT[t]} ${typeCounts[i]}` : ''))
+                    .filter(Boolean)
+                    .join(' · ')}
+            </span>
+          </button>
         </section>
+
+        <div className="workspace">
+          <section className="pane-edit" aria-label="กรอกข้อมูล">
+            <Editor doc={doc} profile={profile} onDoc={patchDoc} onProfile={patchProfile} onToast={showToast} />
+          </section>
+          <section className="pane-preview" aria-label="ตัวอย่างเอกสาร">
+            <div className="preview-card">
+              <header className="preview-head">
+                <div className="preview-title">
+                  <h2>ตัวอย่างเอกสาร</h2>
+                  <p>A4 · อัปเดตทันทีที่พิมพ์</p>
+                </div>
+                <span className="chip num">{Math.round(zoom * 100)}%</span>
+                <button type="button" className="btn btn-soft btn-sm" onClick={print}>
+                  <IconPrint /> พิมพ์
+                </button>
+              </header>
+              <div className="paper-wrap" ref={wrapRef} style={{ ['--zoom' as string]: zoom }}>
+                <Paper doc={doc} profile={profile} />
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
       <nav className="bottombar" aria-label="มุมมอง">
         <button type="button" aria-pressed={view === 'edit'} onClick={() => setView('edit')}>
-          แก้ไข
+          <IconEdit />
+          <span>แก้ไข</span>
         </button>
         <button type="button" aria-pressed={view === 'preview'} onClick={() => setView('preview')}>
-          ดูเอกสาร
+          <IconEye />
+          <span>ดูเอกสาร</span>
         </button>
         <button type="button" onClick={() => save()}>
-          บันทึก
+          <IconSave />
+          <span>บันทึก</span>
         </button>
-        <button type="button" className="primary" onClick={print}>
-          PDF
+        <button type="button" className="bb-primary" onClick={print}>
+          <IconPrint />
+          <span>PDF</span>
         </button>
       </nav>
 
@@ -242,7 +405,8 @@ export default function App() {
       />
 
       <div className={toast ? 'toast show' : 'toast'} role="status" aria-live="polite">
-        {toast}
+        <IconCheck width={18} height={18} />
+        <span>{toast}</span>
       </div>
     </div>
   )

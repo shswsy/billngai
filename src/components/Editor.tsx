@@ -4,6 +4,7 @@ import { computeTotals, fmtMoney, lineAmount } from '../lib/calc'
 import { detectPromptPay } from '../lib/promptpay'
 import { uid } from '../lib/storage'
 import { Field, NumberInput, Section, TextInput } from './fields'
+import { IconDown, IconPlus, IconTrash, IconUp } from './icons'
 
 const ACCENTS = ['#1f3a5f', '#2f5d50', '#8a3b2e', '#4a4458', '#1c1c1c']
 const UNITS = ['งาน', 'ชิ้น', 'ชั่วโมง', 'วัน', 'เดือน', 'ครั้ง', 'ชุด', 'หน้า', 'คน']
@@ -72,7 +73,14 @@ export function Editor({ doc, profile, onDoc, onProfile, onToast }: Props) {
       <Section step={1} title="ข้อมูลกิจการของคุณ" aside={<span className="saved-note">จำไว้ให้ทุกเอกสาร</span>}>
         <div className="logo-row">
           <label className="logo-drop">
-            {profile.logo ? <img src={profile.logo} alt="โลโก้" /> : <span>+ โลโก้</span>}
+            {profile.logo ? (
+              <img src={profile.logo} alt="โลโก้" />
+            ) : (
+              <span className="logo-empty">
+                <IconPlus width={18} height={18} />
+                โลโก้
+              </span>
+            )}
             <input type="file" accept="image/*" onChange={onLogo} />
           </label>
           <div className="logo-side">
@@ -172,7 +180,7 @@ export function Editor({ doc, profile, onDoc, onProfile, onToast }: Props) {
                 />
                 <div className="item-tools">
                   <button type="button" aria-label="เลื่อนขึ้น" disabled={idx === 0} onClick={() => moveItem(idx, -1)}>
-                    ↑
+                    <IconUp width={16} height={16} />
                   </button>
                   <button
                     type="button"
@@ -180,7 +188,7 @@ export function Editor({ doc, profile, onDoc, onProfile, onToast }: Props) {
                     disabled={idx === doc.items.length - 1}
                     onClick={() => moveItem(idx, 1)}
                   >
-                    ↓
+                    <IconDown width={16} height={16} />
                   </button>
                   <button
                     type="button"
@@ -189,7 +197,7 @@ export function Editor({ doc, profile, onDoc, onProfile, onToast }: Props) {
                     disabled={doc.items.length === 1}
                     onClick={() => removeItem(it.id)}
                   >
-                    ×
+                    <IconTrash width={16} height={16} />
                   </button>
                 </div>
               </div>
@@ -212,7 +220,7 @@ export function Editor({ doc, profile, onDoc, onProfile, onToast }: Props) {
           ))}
         </ol>
         <button type="button" className="add-btn" onClick={addItem}>
-          + เพิ่มรายการ
+          <IconPlus width={18} height={18} /> เพิ่มรายการ
         </button>
       </Section>
 
