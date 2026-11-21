@@ -12,8 +12,6 @@ import {
   IconEye,
   IconFolder,
   IconInvoice,
-  IconList,
-  IconPercent,
   IconPlus,
   IconPrint,
   IconQuote,
@@ -21,7 +19,6 @@ import {
   IconSave,
   IconShield,
   IconSpark,
-  IconWallet,
 } from './components/icons'
 import { computeTotals, fmtMoney } from './lib/calc'
 import { sampleData } from './lib/sample'
@@ -42,7 +39,6 @@ import {
 
 const TYPES: DocType[] = ['quotation', 'invoice', 'receipt']
 const TYPE_SHORT: Record<DocType, string> = { quotation: 'ใบเสนอราคา', invoice: 'ใบแจ้งหนี้', receipt: 'ใบเสร็จ' }
-const KPI_SHORT: Record<DocType, string> = { quotation: 'เสนอราคา', invoice: 'แจ้งหนี้', receipt: 'ใบเสร็จ' }
 const TYPE_ICON = { quotation: IconQuote, invoice: IconInvoice, receipt: IconReceipt }
 const VAT_LABEL: Record<VatMode, string> = {
   none: 'ไม่มี VAT',
@@ -192,7 +188,6 @@ export default function App() {
       ? 'saved'
       : 'changed'
   const filledItems = doc.items.filter((it) => it.description.trim() || it.price).length
-  const typeCounts = TYPES.map((t) => docs.filter((d) => d.type === t).length)
 
   const typeNav = (cls: string) => (
     <nav className={cls} aria-label="ประเภทเอกสาร">
@@ -307,51 +302,13 @@ export default function App() {
           </button>
         )}
 
-        <section className="kpis" aria-label="สรุปยอดเอกสารนี้">
-          <div className="kpi kpi-hero">
-            <span className="kpi-ico">
-              <IconWallet />
-            </span>
-            <span className="kpi-label">ยอดชำระสุทธิ</span>
-            <strong className="kpi-value num">฿{fmtMoney(totals.net)}</strong>
-            <span className="kpi-sub">
-              {totals.wht > 0
-                ? `หลังหัก ณ ที่จ่าย ${doc.whtRate}%`
-                : doc.vatMode !== 'none'
-                  ? 'รวม VAT แล้ว'
-                  : 'ยอดที่ลูกค้าต้องจ่าย'}
-            </span>
-          </div>
-          <div className="kpi">
-            <span className="kpi-ico kpi-ico-amber">
-              <IconPercent />
-            </span>
-            <span className="kpi-label">ภาษีมูลค่าเพิ่ม</span>
-            <strong className="kpi-value num">฿{fmtMoney(totals.vat)}</strong>
-            <span className="kpi-sub">{VAT_LABEL[doc.vatMode]}</span>
-          </div>
-          <div className="kpi">
-            <span className="kpi-ico kpi-ico-green">
-              <IconList />
-            </span>
-            <span className="kpi-label">รายการ</span>
-            <strong className="kpi-value num">{filledItems}</strong>
-            <span className="kpi-sub">รวม ฿{fmtMoney(totals.subtotal)}</span>
-          </div>
-          <button type="button" className="kpi kpi-link" onClick={() => setPanel(true)}>
-            <span className="kpi-ico kpi-ico-violet">
-              <IconFolder />
-            </span>
-            <span className="kpi-label">เอกสารที่บันทึก</span>
-            <strong className="kpi-value num">{docs.length}</strong>
-            <span className="kpi-sub">
-              {docs.length === 0
-                ? 'กดเพื่อเปิดดูและค้นหา'
-                : TYPES.map((t, i) => (typeCounts[i] > 0 ? `${KPI_SHORT[t]} ${typeCounts[i]}` : ''))
-                    .filter(Boolean)
-                    .join(' · ')}
-            </span>
-          </button>
+        {/* one running total, pinned while editing (replaces the four KPI cards) */}
+        <section className="totalbar" aria-label="ยอดรวมเอกสารนี้">
+          <span className="tb-label">ยอดชำระสุทธิ</span>
+          <strong className="tb-value num">฿{fmtMoney(totals.net)}</strong>
+          <span className="tb-sub">
+            {totals.wht > 0 ? `หัก ณ ที่จ่าย ${doc.whtRate}%` : VAT_LABEL[doc.vatMode]} · {filledItems} รายการ
+          </span>
         </section>
 
         <div className="workspace">
@@ -393,7 +350,7 @@ export default function App() {
         </button>
         <button type="button" className="bb-primary" onClick={print}>
           <IconPrint />
-          <span>PDF</span>
+          <span>พิมพ์ / PDF</span>
         </button>
       </nav>
 
