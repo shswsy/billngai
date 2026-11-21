@@ -24,12 +24,31 @@ export function DocsPanel({ open, docs, currentId, onClose, onOpen, onConvert, o
   const fileRef = useRef<HTMLInputElement>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
 
+  const panelRef = useRef<HTMLElement>(null)
+
   useEffect(() => {
     if (!open) return
+    const opener = document.activeElement as HTMLElement | null
     closeRef.current?.focus()
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') return onClose()
+      if (e.key !== 'Tab' || !panelRef.current) return
+      // keep Tab inside the drawer while it is open
+      const f = [...panelRef.current.querySelectorAll<HTMLElement>('button:not(:disabled), input, a[href]')].filter((x) => x.offsetParent !== null)
+      if (!f.length) return
+      if (e.shiftKey && document.activeElement === f[0]) {
+        e.preventDefault()
+        f[f.length - 1].focus()
+      } else if (!e.shiftKey && document.activeElement === f[f.length - 1]) {
+        e.preventDefault()
+        f[0].focus()
+      }
+    }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      opener?.focus?.({ preventScroll: true })
+    }
   }, [open, onClose])
 
   const needle = q.trim().toLowerCase()
@@ -38,9 +57,9 @@ export function DocsPanel({ open, docs, currentId, onClose, onOpen, onConvert, o
     : docs
 
   return (
-    <div className={open ? 'drawer open' : 'drawer'} aria-hidden={!open}>
+    <div className={open ? 'drawer open' : 'drawer'} aria-hidden={!open} inert={!open}>
       <div className="drawer-scrim" onClick={onClose} />
-      <aside className="drawer-panel" role="dialog" aria-modal="true" aria-label="เอกสารของฉัน">
+      <aside className="drawer-panel" role="dialog" aria-modal="true" aria-label="เอกสารของฉัน" ref={panelRef}>
         <header className="drawer-head">
           <div>
             <h2>เอกสารของฉัน</h2>
@@ -73,7 +92,7 @@ export function DocsPanel({ open, docs, currentId, onClose, onOpen, onConvert, o
                     <span className="doc-no mono">{d.number}</span>
                     <span className="doc-cust">{d.customer.name || 'ไม่ระบุลูกค้า'}</span>
                     <span className="doc-sub">
-                      {fmtThaiDate(d.date)} · <span className="mono">{fmtMoney(computeTotals(d).total)} ฿</span>
+                      {fmtThaiDate(d.date)} · <span className="mono">฿{fmtMoney(computeTotals(d).total)}</span>
                     </span>
                   </button>
                   <div className="doc-actions">

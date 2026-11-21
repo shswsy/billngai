@@ -7,6 +7,13 @@ import { Field, NumberInput, Section, TextInput } from './fields'
 import { IconDown, IconPlus, IconTrash, IconUp } from './icons'
 
 const ACCENTS = ['#1f3a5f', '#2f5d50', '#8a3b2e', '#4a4458', '#1c1c1c']
+const ACCENT_TH: Record<string, string> = {
+  '#1f3a5f': 'กรมท่า',
+  '#2f5d50': 'เขียวหัวเป็ด',
+  '#8a3b2e': 'แดงอิฐ',
+  '#4a4458': 'ม่วงเทา',
+  '#1c1c1c': 'ดำ',
+}
 const UNITS = ['งาน', 'ชิ้น', 'ชั่วโมง', 'วัน', 'เดือน', 'ครั้ง', 'ชุด', 'หน้า', 'คน']
 
 /** Shrink an uploaded logo so it fits comfortably in localStorage. */
@@ -105,20 +112,40 @@ export function Editor({ doc, profile, onDoc, onProfile, onToast }: Props) {
           <TextInput label="อีเมล" value={profile.email} onChange={(email) => onProfile({ email })} type="email" />
           <TextInput label="ชื่อผู้ลงนาม" value={profile.signerName} onChange={(signerName) => onProfile({ signerName })} wide />
         </div>
-        <div className="accent-row" role="radiogroup" aria-label="สีเอกสาร">
-          <span>สีเอกสาร</span>
-          {ACCENTS.map((c) => (
-            <button
-              key={c}
-              type="button"
-              role="radio"
-              aria-checked={profile.accent === c}
-              aria-label={c}
-              className="swatch"
-              style={{ background: c }}
-              onClick={() => onProfile({ accent: c })}
-            />
-          ))}
+        <div
+          className="accent-row"
+          role="radiogroup"
+          aria-labelledby="accent-label"
+          onKeyDown={(e) => {
+            const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]
+            if (!step) return
+            e.preventDefault()
+            const i = Math.max(0, ACCENTS.indexOf(profile.accent))
+            const next = ACCENTS[(i + step + ACCENTS.length) % ACCENTS.length]
+            onProfile({ accent: next })
+            const row = e.currentTarget
+            requestAnimationFrame(() => row.querySelector<HTMLElement>(`[data-accent="${next}"]`)?.focus())
+          }}
+        >
+          <span id="accent-label">สีเอกสาร</span>
+          {ACCENTS.map((c) => {
+            const on = profile.accent === c || (!ACCENTS.includes(profile.accent) && c === ACCENTS[0])
+            return (
+              <button
+                key={c}
+                type="button"
+                role="radio"
+                aria-checked={profile.accent === c}
+                aria-label={ACCENT_TH[c]}
+                title={ACCENT_TH[c]}
+                tabIndex={on ? 0 : -1}
+                data-accent={c}
+                className="swatch"
+                style={{ background: c }}
+                onClick={() => onProfile({ accent: c })}
+              />
+            )
+          })}
         </div>
       </Section>
 
@@ -159,7 +186,7 @@ export function Editor({ doc, profile, onDoc, onProfile, onToast }: Props) {
         </div>
       </Section>
 
-      <Section step={4} title="รายการสินค้า / บริการ" aside={<span className="mono">{fmtMoney(totals.subtotal)} ฿</span>}>
+      <Section step={4} title="รายการสินค้า / บริการ" aside={<span className="mono">฿{fmtMoney(totals.subtotal)}</span>}>
         <datalist id="units">
           {UNITS.map((u) => (
             <option key={u} value={u} />
@@ -224,7 +251,7 @@ export function Editor({ doc, profile, onDoc, onProfile, onToast }: Props) {
         </button>
       </Section>
 
-      <Section step={5} title="ส่วนลดและภาษี" aside={<span className="mono">{fmtMoney(totals.net)} ฿</span>}>
+      <Section step={5} title="ส่วนลดและภาษี" aside={<span className="mono">฿{fmtMoney(totals.net)}</span>}>
         <div className="grid">
           <Field label="ส่วนลด (บาท)">{(id) => <NumberInput id={id} value={doc.discount} onChange={(discount) => onDoc({ discount })} />}</Field>
           <Field label="หัก ณ ที่จ่าย" hint="ลูกค้านิติบุคคลมักหัก 3% สำหรับค่าบริการ">

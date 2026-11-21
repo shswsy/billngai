@@ -177,8 +177,8 @@ Warm paper neutrals with one deep navy and three semantic tints, plus a separate
 - **Krom Navy Mist** (#e6ebf2): selected nav row, step numbers, selected segmented option.
 
 ### Secondary
-- **Receipt Green** (#12965a) / **Receipt Green Mist** (#e6f6ee): saved status, receipt badge and stripe, privacy note.
-- **Invoice Amber** (#c27400) / **Invoice Amber Mist** (#fff3df): unsaved/draft status, invoice badge and stripe.
+- **Receipt Green** (#12965a) / **Receipt Green Mist** (#e6f6ee): saved status, receipt badge and stripe, privacy note. Text on the mist uses **Receipt Green Ink** (#0d6b40) for 4.5:1.
+- **Invoice Amber** (#c27400) / **Invoice Amber Mist** (#fff3df): unsaved/draft status, invoice badge and stripe. Text on the mist uses **Invoice Amber Ink** (#8a5300) for 4.5:1.
 
 ### Tertiary
 - **Stamp Violet** (#7a4ee8) / **Stamp Violet Mist** (#f2edff): reserved; currently unused after the KPI cards were removed.

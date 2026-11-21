@@ -266,7 +266,7 @@ export default function App() {
               <span>{DOC_LABEL[doc.type].th}</span>
               <span className="chip mono">{doc.number}</span>
               <span className={`status status-${status}`}>
-                {status === 'saved' ? 'บันทึกแล้ว' : status === 'changed' ? 'มีการแก้ไข' : 'ฉบับร่าง'}
+                {status === 'saved' ? 'บันทึกแล้ว' : status === 'changed' ? 'มีการแก้ไข' : 'ร่าง · เก็บในเครื่องอัตโนมัติ'}
               </span>
             </h1>
           </div>
@@ -322,7 +322,7 @@ export default function App() {
                   <h2>ตัวอย่างเอกสาร</h2>
                   <p>A4 · อัปเดตทันทีที่พิมพ์</p>
                 </div>
-                <span className="chip num">{Math.round(zoom * 100)}%</span>
+                <span className="zoom-note num" title="ขนาดย่อเพื่อให้พอดีจอ พิมพ์ออกมาเป็น A4 เต็มขนาด">ย่อ {Math.round(zoom * 100)}%</span>
                 <button type="button" className="btn btn-soft btn-sm" onClick={print}>
                   <IconPrint /> พิมพ์
                 </button>
