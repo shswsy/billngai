@@ -170,6 +170,12 @@ export const IconUpload = (p: P) => (
   </Svg>
 )
 
+export const IconAlert = (p: P) => (
+  <Svg {...p}>
+    <path d="M12 9v4M12 17h.01M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
+  </Svg>
+)
+
 export const IconCheck = (p: P) => (
   <Svg {...p}>
     <path d="M5 12.5l4.5 4.5L19 7.5" />

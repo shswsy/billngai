@@ -205,7 +205,7 @@ Cool, clean product neutrals with one saturated blue and three semantic tints, p
 **Display Font:** Prompt 600-700 (headings, KPI values, brand)
 **Body Font:** IBM Plex Sans Thai (with Noto Sans Thai, system-ui)
 **Label/Mono Font:** IBM Plex Mono with tabular numerals (document numbers, amounts)
-**Document Font:** Sarabun (Thai business-document standard) for the document body; document headings (seller name, title, section heads) inherit Prompt from the global heading rule
+**Document Font:** Sarabun (Thai business-document standard) for the document body; document headings (seller name, title, section heads) are Sarabun too (`.paper h1–h3` overrides the global Prompt heading rule)
 
 **Character:** Prompt gives the chrome a friendly, modern voice; Plex Sans Thai keeps forms legible; Sarabun makes the output look like a real Thai office document. `line-break: loose` is set on body for Thai.
 
@@ -215,7 +215,7 @@ Cool, clean product neutrals with one saturated blue and three semantic tints, p
 - **Stat** (600, 22px, 1.3): KPI values.
 - **Body** (400, 15px, 1.6): inputs and general UI text.
 - **Label** (500, 13px, 1.4): field labels, crumbs; hints at 12px Fog Ink.
-- **Document** (Sarabun 400, 10.5pt, 1.45; title Prompt 22pt 700 in accent; English sub-title 10pt, 0.25em tracking, uppercase).
+- **Document** (Sarabun 400, 10.5pt, 1.45; title Sarabun 22pt 700 in accent; English sub-title 10pt, 0.25em tracking, uppercase).
 
 ### Named Rules
 **The Numbers Line Up Rule.** Every amount, count and document number uses tabular numerals (`.num` or IBM Plex Mono).
@@ -279,7 +279,7 @@ Friendly, consistent rounding on a near-square document. Cards and sections 20px
 - Right-side sheet (max 460px) on Desk Grey with a blurred navy scrim, search field, and doc cards with a type-colored left stripe; the current doc gets a blue border and halo.
 
 ### A4 Paper (signature)
-- 210 × 297mm white sheet, Sarabun 10.5pt body with Prompt headings, accent-colored title and table header, Thai baht-in-words line, PromptPay QR, signature lines. Rendered with `print-color-adjust: exact`.
+- 210 × 297mm white sheet, Sarabun throughout (body 10.5pt and headings), accent-colored title and table header, Thai baht-in-words line, PromptPay QR, signature lines. Rendered with `print-color-adjust: exact`.
 
 ### Toast
 - Dark navy pill-ish box (14px radius) at the bottom center, white text, green check icon, slides up 20px.
