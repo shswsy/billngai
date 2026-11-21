@@ -3,6 +3,8 @@ import { DOC_LABEL, type Doc, type DocType, type Profile, type VatMode } from '.
 import { Editor } from './components/Editor'
 import { Paper } from './components/Paper'
 import { DocsPanel } from './components/DocsPanel'
+import { PrintCheck } from './components/PrintCheck'
+import { pdfName } from './lib/printCheck'
 import {
   IconArrowRight,
   IconCheck,
@@ -65,6 +67,9 @@ export default function App() {
   const toastTimer = useRef<number>(0)
   const wrapRef = useRef<HTMLDivElement>(null)
   const [zoom, setZoom] = useState(1)
+  const [printStage, setPrintStage] = useState<'check' | 'done' | null>(null)
+  // set while a print started from our check sheet is open, so only that one gets the "done" sheet
+  const printing = useRef(false)
 
   // Scale the A4 sheet (≈794px wide) down to fit whatever space the preview has.
   useEffect(() => {
@@ -95,10 +100,14 @@ export default function App() {
   useEffect(() => {
     const base = 'บิลง่าย — ใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ ออนไลน์ฟรี'
     const onBefore = () => {
-      document.title = [doc.number, doc.customer.name].filter(Boolean).join(' ')
+      document.title = pdfName(doc)
     }
     const onAfter = () => {
       document.title = base
+      if (printing.current) {
+        printing.current = false
+        setPrintStage('done')
+      }
     }
     window.addEventListener('beforeprint', onBefore)
     window.addEventListener('afterprint', onAfter)
@@ -106,7 +115,7 @@ export default function App() {
       window.removeEventListener('beforeprint', onBefore)
       window.removeEventListener('afterprint', onAfter)
     }
-  }, [doc.number, doc.customer.name])
+  }, [doc])
 
   const patchDoc = (patch: Partial<Doc>) => setDoc((d) => ({ ...d, ...patch, updatedAt: Date.now() }))
   const patchProfile = (patch: Partial<Profile>) => setProfile((p) => ({ ...p, ...patch }))
@@ -135,9 +144,15 @@ export default function App() {
     if (!silent) showToast(ok ? `บันทึก ${doc.number} แล้ว` : 'บันทึกไม่สำเร็จ พื้นที่ในเบราว์เซอร์อาจเต็ม')
   }
 
-  const print = () => {
+  // every print button opens the check sheet first; the sheet's own button does the real print
+  const print = () => setPrintStage('check')
+
+  const doPrint = () => {
     save(true)
-    window.print()
+    setPrintStage(null)
+    printing.current = true
+    // let the modal close before the browser snapshots the page
+    window.setTimeout(() => window.print(), 60)
   }
 
   const startNew = () => {
@@ -402,6 +417,24 @@ export default function App() {
         }}
         onExport={exportFile}
         onImport={importFile}
+      />
+
+      <PrintCheck
+        stage={printStage}
+        doc={doc}
+        profile={profile}
+        onPrint={doPrint}
+        onClose={() => setPrintStage(null)}
+        onNext={(t) => {
+          setPrintStage(null)
+          setDoc(convertDoc(doc, t))
+          setView('edit')
+          showToast(`สร้าง${TYPE_SHORT[t]}จาก ${doc.number} แล้ว`)
+        }}
+        onNew={() => {
+          setPrintStage(null)
+          startNew()
+        }}
       />
 
       <div className={toast ? 'toast show' : 'toast'} role="status" aria-live="polite">
