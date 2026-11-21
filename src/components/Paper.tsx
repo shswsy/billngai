@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import QRCode from 'qrcode'
 import { DOC_LABEL, type Doc, type Profile } from '../types'
 import { computeTotals, fmtMoney, fmtQty, fmtThaiDate, lineAmount, VAT_RATE } from '../lib/calc'
 import { bahtText } from '../lib/bahtText'
@@ -20,7 +19,9 @@ function usePromptPayQr(target: string, amount: number, enabled: boolean) {
   useEffect(() => {
     if (!payload) return
     let alive = true
-    QRCode.toDataURL(payload, { margin: 1, width: 240, errorCorrectionLevel: 'M' })
+    // the QR library only loads when a PromptPay QR is actually shown
+    import('qrcode')
+      .then((m) => m.default.toDataURL(payload, { margin: 1, width: 240, errorCorrectionLevel: 'M' }))
       .then((url) => alive && setQr({ payload, url }))
       .catch(() => {})
     return () => {
@@ -67,12 +68,12 @@ export function Paper({ doc, profile }: { doc: Doc; profile: Profile }) {
         <div className="pp-seller">
           {logo && <img className="pp-logo" src={logo} alt="" />}
           <div>
-            <h2 className="pp-seller-name">{profile.name || 'ชื่อกิจการของคุณ'}</h2>
+            <p className="pp-seller-name">{profile.name || 'ชื่อกิจการของคุณ'}</p>
             <PartyLines p={profile} />
           </div>
         </div>
         <div className="pp-title">
-          <h1>{label.th}</h1>
+          <h2 className="pp-doc-title">{label.th}</h2>
           <p className="pp-title-en">{label.en}</p>
           <span className="pp-original">ต้นฉบับ · Original</span>
         </div>

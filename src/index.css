@@ -18,8 +18,10 @@
   --on-primary: #ffffff;
   --green: #12965a;
   --green-soft: #e6f6ee;
+  --green-ink: #0d6b40; /* text on green-soft, >= 4.5:1 */
   --amber: #c27400;
   --amber-soft: #fff3df;
+  --amber-ink: #8a5300; /* text on amber-soft, >= 4.5:1 */
   --violet: #7a4ee8;
   --violet-soft: #f2edff;
   --red: #dc3d43;
@@ -61,8 +63,10 @@
     --on-primary: #0f1a2b;
     --green: #4cc98b;
     --green-soft: #15332a;
+    --green-ink: #4cc98b;
     --amber: #f1b154;
     --amber-soft: #3a2c14;
+    --amber-ink: #f1b154;
     --violet: #a98bff;
     --violet-soft: #2a2148;
     --red: #ff7a7f;
@@ -264,13 +268,13 @@ h3 {
 
 .status-saved {
   background: var(--green-soft);
-  color: var(--green);
+  color: var(--green-ink);
 }
 
 .status-changed,
 .status-draft {
   background: var(--amber-soft);
-  color: var(--amber);
+  color: var(--amber-ink);
 }
 
 /* ============ App shell ============ */
@@ -409,7 +413,7 @@ h3 {
   padding: 14px;
   border-radius: var(--r-md);
   background: var(--green-soft);
-  color: var(--green);
+  color: var(--green-ink);
 }
 
 .side-privacy svg {
@@ -738,8 +742,8 @@ h3 {
 }
 
 .chev {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   color: var(--ink-3);
   transition: transform 0.2s;
   flex-shrink: 0;
@@ -850,7 +854,7 @@ textarea::placeholder {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 500;
-  color: var(--green);
+  color: var(--green-ink);
   background: var(--green-soft);
 }
 
@@ -1016,12 +1020,41 @@ textarea::placeholder {
 .item-tools button {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border: 0;
   border-radius: 9px;
   background: transparent;
   color: var(--ink-3);
+}
+
+/* a little distance before the destructive button */
+.item-tools button.danger {
+  margin-left: 6px;
+}
+
+.zoom-note {
+  font-size: 13px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* touch: 44px hit areas for the row tools and colour swatches */
+@media (pointer: coarse) {
+  .item-tools button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .swatch {
+    position: relative;
+  }
+
+  .swatch::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+  }
 }
 
 .item-tools button:hover:not(:disabled) {
@@ -1271,7 +1304,7 @@ textarea::placeholder {
 
 .pc-mark-ok {
   background: var(--green-soft);
-  color: var(--green);
+  color: var(--green-ink);
 }
 
 .pc-facts {
@@ -1336,7 +1369,7 @@ textarea::placeholder {
 
 .pc-warn svg {
   flex: none;
-  color: var(--amber);
+  color: var(--amber-ink);
 }
 
 .pc-warn ul {
@@ -1359,7 +1392,7 @@ textarea::placeholder {
 }
 
 .pc-ok svg {
-  color: var(--green);
+  color: var(--green-ink);
 }
 
 .pc-note {
@@ -1440,7 +1473,7 @@ textarea::placeholder {
   flex-shrink: 0;
 }
 
-.pp-title h1 {
+.pp-title .pp-doc-title {
   font-size: 22pt;
   font-weight: 700;
   line-height: 1.1;
@@ -1858,12 +1891,12 @@ textarea::placeholder {
 }
 
 .badge-invoice {
-  color: var(--amber);
+  color: var(--amber-ink);
   background: var(--amber-soft);
 }
 
 .badge-receipt {
-  color: var(--green);
+  color: var(--green-ink);
   background: var(--green-soft);
 }
 
