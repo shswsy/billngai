@@ -1,0 +1,579 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-20T00:00:00Z",
+  "title": "Design System: บิลง่าย · BillNgai",
+  "extensions": {
+    "colorMeta": {
+      "ledger-blue": {
+        "role": "primary",
+        "displayName": "Ledger Blue",
+        "canonical": "#3d5af1",
+        "dark": "#6c86ff",
+        "tonalRamp": [
+          "oklch(15% 0.125 269)",
+          "oklch(26% 0.177 269)",
+          "oklch(38% 0.227 269)",
+          "oklch(49% 0.227 269)",
+          "oklch(61% 0.227 269)",
+          "oklch(72% 0.227 269)",
+          "oklch(84% 0.177 269)",
+          "oklch(95% 0.125 269)"
+        ]
+      },
+      "ledger-blue-deep": {
+        "role": "primary",
+        "displayName": "Ledger Blue Deep",
+        "canonical": "#2f4ad8",
+        "dark": "#839aff",
+        "tonalRamp": [
+          "oklch(15% 0.120 268)",
+          "oklch(26% 0.169 268)",
+          "oklch(38% 0.218 268)",
+          "oklch(49% 0.218 268)",
+          "oklch(61% 0.218 268)",
+          "oklch(72% 0.218 268)",
+          "oklch(84% 0.169 268)",
+          "oklch(95% 0.120 268)"
+        ]
+      },
+      "ledger-blue-ink": {
+        "role": "primary",
+        "displayName": "Ledger Blue Ink",
+        "canonical": "#2b44c9",
+        "dark": "#a9b8ff",
+        "tonalRamp": [
+          "oklch(15% 0.114 268)",
+          "oklch(26% 0.161 268)",
+          "oklch(38% 0.207 268)",
+          "oklch(49% 0.207 268)",
+          "oklch(61% 0.207 268)",
+          "oklch(72% 0.207 268)",
+          "oklch(84% 0.161 268)",
+          "oklch(95% 0.114 268)"
+        ]
+      },
+      "ledger-blue-mist": {
+        "role": "primary",
+        "displayName": "Ledger Blue Mist",
+        "canonical": "#edf0ff",
+        "dark": "#1f2a52",
+        "tonalRamp": [
+          "oklch(15% 0.011 277)",
+          "oklch(26% 0.016 277)",
+          "oklch(38% 0.020 277)",
+          "oklch(49% 0.020 277)",
+          "oklch(61% 0.020 277)",
+          "oklch(72% 0.020 277)",
+          "oklch(84% 0.016 277)",
+          "oklch(95% 0.011 277)"
+        ]
+      },
+      "receipt-green": {
+        "role": "secondary",
+        "displayName": "Receipt Green",
+        "canonical": "#12965a",
+        "dark": "#4cc98b",
+        "tonalRamp": [
+          "oklch(15% 0.077 156)",
+          "oklch(26% 0.108 156)",
+          "oklch(38% 0.139 156)",
+          "oklch(49% 0.139 156)",
+          "oklch(61% 0.139 156)",
+          "oklch(72% 0.139 156)",
+          "oklch(84% 0.108 156)",
+          "oklch(95% 0.077 156)"
+        ]
+      },
+      "receipt-green-mist": {
+        "role": "secondary",
+        "displayName": "Receipt Green Mist",
+        "canonical": "#e6f6ee",
+        "dark": "#15332a",
+        "tonalRamp": [
+          "oklch(15% 0.011 165)",
+          "oklch(26% 0.015 165)",
+          "oklch(38% 0.020 165)",
+          "oklch(49% 0.020 165)",
+          "oklch(61% 0.020 165)",
+          "oklch(72% 0.020 165)",
+          "oklch(84% 0.015 165)",
+          "oklch(95% 0.011 165)"
+        ]
+      },
+      "invoice-amber": {
+        "role": "secondary",
+        "displayName": "Invoice Amber",
+        "canonical": "#c27400",
+        "dark": "#f1b154",
+        "tonalRamp": [
+          "oklch(15% 0.078 65)",
+          "oklch(26% 0.110 65)",
+          "oklch(38% 0.141 65)",
+          "oklch(49% 0.141 65)",
+          "oklch(61% 0.141 65)",
+          "oklch(72% 0.141 65)",
+          "oklch(84% 0.110 65)",
+          "oklch(95% 0.078 65)"
+        ]
+      },
+      "invoice-amber-mist": {
+        "role": "secondary",
+        "displayName": "Invoice Amber Mist",
+        "canonical": "#fff3df",
+        "dark": "#3a2c14",
+        "tonalRamp": [
+          "oklch(15% 0.016 81)",
+          "oklch(26% 0.023 81)",
+          "oklch(38% 0.029 81)",
+          "oklch(49% 0.029 81)",
+          "oklch(61% 0.029 81)",
+          "oklch(72% 0.029 81)",
+          "oklch(84% 0.023 81)",
+          "oklch(95% 0.016 81)"
+        ]
+      },
+      "stamp-violet": {
+        "role": "tertiary",
+        "displayName": "Stamp Violet",
+        "canonical": "#7a4ee8",
+        "dark": "#a98bff",
+        "tonalRamp": [
+          "oklch(15% 0.121 291)",
+          "oklch(26% 0.171 291)",
+          "oklch(38% 0.220 291)",
+          "oklch(49% 0.220 291)",
+          "oklch(61% 0.220 291)",
+          "oklch(72% 0.220 291)",
+          "oklch(84% 0.171 291)",
+          "oklch(95% 0.121 291)"
+        ]
+      },
+      "stamp-violet-mist": {
+        "role": "tertiary",
+        "displayName": "Stamp Violet Mist",
+        "canonical": "#f2edff",
+        "dark": "#2a2148",
+        "tonalRamp": [
+          "oklch(15% 0.013 299)",
+          "oklch(26% 0.019 299)",
+          "oklch(38% 0.025 299)",
+          "oklch(49% 0.025 299)",
+          "oklch(61% 0.025 299)",
+          "oklch(72% 0.025 299)",
+          "oklch(84% 0.019 299)",
+          "oklch(95% 0.013 299)"
+        ]
+      },
+      "void-red": {
+        "role": "tertiary",
+        "displayName": "Void Red",
+        "canonical": "#dc3d43",
+        "dark": "#ff7a7f",
+        "tonalRamp": [
+          "oklch(15% 0.107 23)",
+          "oklch(26% 0.152 23)",
+          "oklch(38% 0.195 23)",
+          "oklch(49% 0.195 23)",
+          "oklch(61% 0.195 23)",
+          "oklch(72% 0.195 23)",
+          "oklch(84% 0.152 23)",
+          "oklch(95% 0.107 23)"
+        ]
+      },
+      "void-red-mist": {
+        "role": "tertiary",
+        "displayName": "Void Red Mist",
+        "canonical": "#fdecec",
+        "dark": "#3d1d22",
+        "tonalRamp": [
+          "oklch(15% 0.010 17)",
+          "oklch(26% 0.014 17)",
+          "oklch(38% 0.018 17)",
+          "oklch(49% 0.018 17)",
+          "oklch(61% 0.018 17)",
+          "oklch(72% 0.018 17)",
+          "oklch(84% 0.014 17)",
+          "oklch(95% 0.010 17)"
+        ]
+      },
+      "desk-grey": {
+        "role": "neutral",
+        "displayName": "Desk Grey",
+        "canonical": "#f4f6fa",
+        "dark": "#0e1320",
+        "tonalRamp": [
+          "oklch(15% 0.003 265)",
+          "oklch(26% 0.004 265)",
+          "oklch(38% 0.006 265)",
+          "oklch(49% 0.006 265)",
+          "oklch(61% 0.006 265)",
+          "oklch(72% 0.006 265)",
+          "oklch(84% 0.004 265)",
+          "oklch(95% 0.003 265)"
+        ]
+      },
+      "sheet-white": {
+        "role": "neutral",
+        "displayName": "Sheet White",
+        "canonical": "#ffffff",
+        "dark": "#161c2b",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(26% 0.000 90)",
+          "oklch(38% 0.000 90)",
+          "oklch(49% 0.000 90)",
+          "oklch(61% 0.000 90)",
+          "oklch(72% 0.000 90)",
+          "oklch(84% 0.000 90)",
+          "oklch(95% 0.000 90)"
+        ]
+      },
+      "field-grey": {
+        "role": "neutral",
+        "displayName": "Field Grey",
+        "canonical": "#f7f9fc",
+        "dark": "#1c2335",
+        "tonalRamp": [
+          "oklch(15% 0.002 258)",
+          "oklch(26% 0.004 258)",
+          "oklch(38% 0.005 258)",
+          "oklch(49% 0.005 258)",
+          "oklch(61% 0.005 258)",
+          "oklch(72% 0.005 258)",
+          "oklch(84% 0.004 258)",
+          "oklch(95% 0.002 258)"
+        ]
+      },
+      "chip-grey": {
+        "role": "neutral",
+        "displayName": "Chip Grey",
+        "canonical": "#eef1f6",
+        "dark": "#111726",
+        "tonalRamp": [
+          "oklch(15% 0.004 261)",
+          "oklch(26% 0.006 261)",
+          "oklch(38% 0.007 261)",
+          "oklch(49% 0.007 261)",
+          "oklch(61% 0.007 261)",
+          "oklch(72% 0.007 261)",
+          "oklch(84% 0.006 261)",
+          "oklch(95% 0.004 261)"
+        ]
+      },
+      "navy-ink": {
+        "role": "neutral",
+        "displayName": "Navy Ink",
+        "canonical": "#18213a",
+        "dark": "#e8ecf5",
+        "tonalRamp": [
+          "oklch(15% 0.027 268)",
+          "oklch(26% 0.038 268)",
+          "oklch(38% 0.049 268)",
+          "oklch(49% 0.049 268)",
+          "oklch(61% 0.049 268)",
+          "oklch(72% 0.049 268)",
+          "oklch(84% 0.038 268)",
+          "oklch(95% 0.027 268)"
+        ]
+      },
+      "slate-ink": {
+        "role": "neutral",
+        "displayName": "Slate Ink",
+        "canonical": "#4a5470",
+        "dark": "#b0b8cb",
+        "tonalRamp": [
+          "oklch(15% 0.026 269)",
+          "oklch(26% 0.037 269)",
+          "oklch(38% 0.048 269)",
+          "oklch(49% 0.048 269)",
+          "oklch(61% 0.048 269)",
+          "oklch(72% 0.048 269)",
+          "oklch(84% 0.037 269)",
+          "oklch(95% 0.026 269)"
+        ]
+      },
+      "fog-ink": {
+        "role": "neutral",
+        "displayName": "Fog Ink",
+        "canonical": "#8790a6",
+        "dark": "#7d879c",
+        "tonalRamp": [
+          "oklch(15% 0.019 268)",
+          "oklch(26% 0.027 268)",
+          "oklch(38% 0.034 268)",
+          "oklch(49% 0.034 268)",
+          "oklch(61% 0.034 268)",
+          "oklch(72% 0.034 268)",
+          "oklch(84% 0.027 268)",
+          "oklch(95% 0.019 268)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e6eaf1",
+        "dark": "#252d42",
+        "tonalRamp": [
+          "oklch(15% 0.006 262)",
+          "oklch(26% 0.008 262)",
+          "oklch(38% 0.010 262)",
+          "oklch(49% 0.010 262)",
+          "oklch(61% 0.010 262)",
+          "oklch(72% 0.010 262)",
+          "oklch(84% 0.008 262)",
+          "oklch(95% 0.006 262)"
+        ]
+      },
+      "field-line": {
+        "role": "neutral",
+        "displayName": "Field Line",
+        "canonical": "#d6dce7",
+        "dark": "#323b54",
+        "tonalRamp": [
+          "oklch(15% 0.009 263)",
+          "oklch(26% 0.013 263)",
+          "oklch(38% 0.016 263)",
+          "oklch(49% 0.016 263)",
+          "oklch(61% 0.016 263)",
+          "oklch(72% 0.016 263)",
+          "oklch(84% 0.013 263)",
+          "oklch(95% 0.009 263)"
+        ]
+      },
+      "doc-navy": {
+        "role": "neutral",
+        "displayName": "Doc Navy (default document accent)",
+        "canonical": "#1f3a5f",
+        "tonalRamp": [
+          "oklch(15% 0.040 257)",
+          "oklch(26% 0.057 257)",
+          "oklch(38% 0.073 257)",
+          "oklch(49% 0.073 257)",
+          "oklch(61% 0.073 257)",
+          "oklch(72% 0.073 257)",
+          "oklch(84% 0.057 257)",
+          "oklch(95% 0.040 257)"
+        ]
+      },
+      "doc-ink": {
+        "role": "neutral",
+        "displayName": "Doc Ink",
+        "canonical": "#1b1f27",
+        "tonalRamp": [
+          "oklch(15% 0.009 264)",
+          "oklch(26% 0.013 264)",
+          "oklch(38% 0.017 264)",
+          "oklch(49% 0.017 264)",
+          "oklch(61% 0.017 264)",
+          "oklch(72% 0.017 264)",
+          "oklch(84% 0.013 264)",
+          "oklch(95% 0.009 264)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page title."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section summaries and preview head."
+      },
+      "stat": {
+        "displayName": "Stat",
+        "purpose": "KPI values."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Inputs and general UI."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels and crumbs."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Document numbers and amounts, tabular."
+      },
+      "document": {
+        "displayName": "Document",
+        "purpose": "Body text on the A4 paper (Sarabun)."
+      },
+      "document-title": {
+        "displayName": "Document Title",
+        "purpose": "Document type title on the paper, in the accent color."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-card",
+        "value": "0 1px 2px rgba(20, 30, 60, 0.04), 0 10px 28px -14px rgba(20, 30, 60, 0.14)",
+        "purpose": "Sections, KPIs, preview card, doc cards."
+      },
+      {
+        "name": "shadow",
+        "value": "0 2px 6px rgba(20, 30, 60, 0.06), 0 18px 40px -18px rgba(20, 30, 60, 0.28)",
+        "purpose": "The A4 paper."
+      },
+      {
+        "name": "shadow-pop",
+        "value": "0 20px 48px -18px rgba(20, 30, 60, 0.32)",
+        "purpose": "Drawer panel and toast."
+      },
+      {
+        "name": "blue-glow",
+        "value": "0 6px 16px -8px color-mix(in srgb, var(--primary) 80%, transparent)",
+        "purpose": "Primary button."
+      },
+      {
+        "name": "focus-halo",
+        "value": "0 0 0 4px color-mix(in srgb, var(--primary) 14%, transparent)",
+        "purpose": "Focused inputs and current doc card (3px)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "Section rise, paper entrance, drawer slide."
+      },
+      {
+        "name": "state",
+        "value": "0.15s",
+        "purpose": "Color, border and shadow transitions."
+      },
+      {
+        "name": "press",
+        "value": "0.08s",
+        "purpose": "Button press (1px down)."
+      },
+      {
+        "name": "rise",
+        "value": "0.45s",
+        "purpose": "Editor sections enter with an 8px rise, staggered 0.04s."
+      },
+      {
+        "name": "drawer",
+        "value": "0.3s",
+        "purpose": "Drawer slide-in from the right."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xs",
+        "value": "420px"
+      },
+      {
+        "name": "sm",
+        "value": "899px"
+      },
+      {
+        "name": "md",
+        "value": "1099px"
+      },
+      {
+        "name": "lg",
+        "value": "1199px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid blue action (print / save PDF, new document).",
+      "html": "<button class=\"ds-btn ds-btn-primary\">พิมพ์ / บันทึก PDF</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 18px; border: 1px solid transparent; border-radius: 12px; font-family: 'IBM Plex Sans Thai', 'Noto Sans Thai', system-ui, sans-serif; font-size: 15px; font-weight: 500; white-space: nowrap; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.08s; } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid #3d5af1; outline-offset: 2px; } .ds-btn-primary { background: #3d5af1; color: #fff; box-shadow: 0 6px 16px -8px rgba(61,90,241,0.8); } .ds-btn-primary:hover { background: #2f4ad8; }"
+    },
+    {
+      "name": "Soft Button",
+      "kind": "button",
+      "refersTo": "button-soft",
+      "description": "White bordered secondary action.",
+      "html": "<button class=\"ds-btn-soft\">เอกสารทั้งหมด</button>",
+      "css": ".ds-btn-soft { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border: 1px solid #d6dce7; border-radius: 12px; background: #fff; color: #18213a; font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: border-color 0.15s, color 0.15s, transform 0.08s; } .ds-btn-soft:hover { border-color: #3d5af1; color: #2b44c9; } .ds-btn-soft:active { transform: translateY(1px); } .ds-btn-soft:focus-visible { outline: 2px solid #3d5af1; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Grey-filled field that turns white with a blue halo on focus.",
+      "html": "<label class=\"ds-field\"><span>ชื่อลูกค้า</span><input class=\"ds-input\" placeholder=\"เช่น บริษัท ตัวอย่าง จำกัด\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; max-width: 360px; font-family: 'IBM Plex Sans Thai', sans-serif; } .ds-field span { font-size: 13px; font-weight: 500; color: #4a5470; } .ds-input { min-height: 44px; padding: 9px 13px; border: 1px solid #d6dce7; border-radius: 12px; background: #f7f9fc; font: inherit; font-size: 15px; color: #18213a; transition: border-color 0.15s, background 0.15s, box-shadow 0.15s; } .ds-input::placeholder { color: #8790a6; } .ds-input:hover { border-color: #9ba9e9; } .ds-input:focus { outline: none; border-color: #3d5af1; background: #fff; box-shadow: 0 0 0 4px rgba(61,90,241,0.14); }"
+    },
+    {
+      "name": "Sidebar Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Document-type nav with blue-mist active row and edge bar.",
+      "html": "<nav class=\"ds-side\"><button class=\"ds-nav\" aria-pressed=\"true\">ใบเสนอราคา <span class=\"ds-count\">3</span></button><button class=\"ds-nav\">ใบแจ้งหนี้ <span class=\"ds-count\">1</span></button><button class=\"ds-nav\">ใบเสร็จรับเงิน <span class=\"ds-count\">2</span></button></nav>",
+      "css": ".ds-side { display: flex; flex-direction: column; gap: 2px; width: 220px; padding: 0 16px; background: #fff; font-family: 'IBM Plex Sans Thai', sans-serif; } .ds-nav { position: relative; display: flex; align-items: center; gap: 12px; height: 46px; padding: 0 12px; border: 0; border-radius: 12px; background: transparent; color: #4a5470; font: inherit; font-weight: 500; text-align: left; cursor: pointer; transition: background 0.15s, color 0.15s; } .ds-nav:hover { background: #f7f9fc; color: #18213a; } .ds-nav:focus-visible { outline: 2px solid #3d5af1; outline-offset: 2px; } .ds-nav[aria-pressed='true'] { background: #edf0ff; color: #2b44c9; font-weight: 600; } .ds-nav[aria-pressed='true']::before { content: ''; position: absolute; left: -16px; top: 10px; bottom: 10px; width: 4px; border-radius: 0 4px 4px 0; background: #3d5af1; } .ds-count { margin-left: auto; min-width: 22px; padding: 0 7px; font-size: 12px; font-weight: 600; line-height: 22px; border-radius: 999px; background: #3d5af1; color: #fff; text-align: center; }"
+    },
+    {
+      "name": "Status Chips",
+      "kind": "chip",
+      "refersTo": "status-saved",
+      "description": "Dot-led pills for saved and unsaved state, plus type badges.",
+      "html": "<span class=\"ds-status ds-saved\">บันทึกแล้ว</span> <span class=\"ds-status ds-draft\">ยังไม่บันทึก</span> <span class=\"ds-chip\">QT-2026-0012</span>",
+      "css": ".ds-status { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 999px; font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 12.5px; font-weight: 600; } .ds-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; } .ds-saved { background: #e6f6ee; color: #12965a; } .ds-draft { background: #fff3df; color: #c27400; } .ds-chip { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; background: #eef1f6; color: #4a5470; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 500; }"
+    },
+    {
+      "name": "Editor Section Card",
+      "kind": "card",
+      "refersTo": "card-section",
+      "description": "Collapsible numbered step card in the editor column.",
+      "html": "<details class=\"ds-section\" open><summary><span class=\"ds-step\">1</span><span class=\"ds-title\">ข้อมูลลูกค้า</span></summary><div class=\"ds-body\">ชื่อ ที่อยู่ เลขประจำตัวผู้เสียภาษี</div></details>",
+      "css": ".ds-section { max-width: 420px; background: #fff; border: 1px solid #e6eaf1; border-radius: 20px; box-shadow: 0 1px 2px rgba(20,30,60,0.04), 0 10px 28px -14px rgba(20,30,60,0.14); font-family: 'IBM Plex Sans Thai', sans-serif; color: #18213a; } .ds-section summary { display: flex; align-items: center; gap: 12px; padding: 16px 20px; cursor: pointer; list-style: none; } .ds-section summary::-webkit-details-marker { display: none; } .ds-section summary:focus-visible { outline: 2px solid #3d5af1; outline-offset: 2px; border-radius: 20px; } .ds-step { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: #edf0ff; color: #3d5af1; font-family: 'Prompt', sans-serif; font-size: 14px; font-weight: 600; } .ds-title { font-family: 'Prompt', sans-serif; font-weight: 600; font-size: 16px; } .ds-body { padding: 4px 20px 20px; font-size: 15px; color: #4a5470; }"
+    },
+    {
+      "name": "Segmented Choice",
+      "kind": "custom",
+      "refersTo": "segmented-option-selected",
+      "description": "Three-way VAT selector with blue-mist selected option.",
+      "html": "<div class=\"ds-seg\"><label class=\"ds-opt on\">ไม่มี VAT</label><label class=\"ds-opt\">VAT 7% แยก</label><label class=\"ds-opt\">VAT 7% รวม</label></div>",
+      "css": ".ds-seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 420px; font-family: 'IBM Plex Sans Thai', sans-serif; } .ds-opt { display: grid; place-items: center; min-height: 44px; padding: 6px; text-align: center; border: 1px solid #d6dce7; border-radius: 12px; font-size: 14px; font-weight: 500; background: #f7f9fc; color: #4a5470; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; } .ds-opt:hover { border-color: #9ba9e9; } .ds-opt.on { border-color: #3d5af1; background: #edf0ff; color: #2b44c9; font-weight: 600; box-shadow: inset 0 0 0 1px #3d5af1; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clean Paper Desk",
+    "overview": "A calm, cool-grey work desk with one sheet of white paper on it. The app chrome is a quiet, modern SaaS surface (white cards on a pale blue-grey canvas, one confident blue), and the A4 document is the hero: a true-white sheet in Sarabun with the user's own accent color, shadowed like paper lying on the desk. The chrome exists to get the user to a correct, printable Thai document fast.\n\nDensity is medium and practical: a 236px sidebar, a 380-440px editor column of collapsible numbered steps, and a sticky live preview. Every control is at least 44px tall. Status is always color-coded by document type: blue for quotation, amber for invoice, green for receipt.\n\nThe app follows the OS color scheme: a full dark palette remaps every token (canvas #0e1320, primary #6c86ff), while the paper itself stays light.",
+    "keyCharacteristics": [
+      "One blue (#3d5af1) for actions, selection and focus; soft \"mist\" tints for selected states.",
+      "Document-type color coding: quotation blue, invoice amber, receipt green.",
+      "White cards with a whisper shadow and 20px corners; 12px controls; pill chips and status badges.",
+      "Four-family type system: Prompt headings, IBM Plex Sans Thai UI, IBM Plex Mono numbers, Sarabun on the printed document.",
+      "Light and dark schemes; print outputs only the A4 paper."
+    ],
+    "rules": [
+      {
+        "name": "The Type Has A Color Rule",
+        "body": "Quotation is blue, invoice is amber, receipt is green, everywhere: badges, list stripes, KPI tiles. Never reuse those hues for anything else.",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper Is Not The App Rule",
+        "body": "The document uses its own muted accent and Sarabun body text; app blue never appears on the printed sheet.",
+        "section": "colors"
+      },
+      {
+        "name": "The Numbers Line Up Rule",
+        "body": "Every amount, count and document number uses tabular numerals (`.num` or IBM Plex Mono).",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do use Ledger Blue (#3d5af1) for the one primary action per view and for focus.",
+      "Do keep the quotation / invoice / receipt colors (blue / amber / green) consistent in every surface.",
+      "Do keep every control at least 44px tall and use tabular numerals for money.",
+      "Do keep Sarabun and the user's accent inside the paper only.",
+      "Do keep both the light and dark token sets in sync when adding a color."
+    ],
+    "donts": [
+      "Don't use app blue on the printed document.",
+      "Don't use `window.alert` or `confirm`; destructive actions confirm inline in Void Red.",
+      "Don't add heavy shadows to cards; the paper is the only object that sits clearly above the desk."
+    ]
+  }
+}
